@@ -89,6 +89,10 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return Autos.exampleAuto(m_exampleSubsystem);
+    return Commands.sequence(
+      Commands.runOnce(() -> {tankDrive.moving(1, 0);}, tankDrive),
+      Commands.waitSeconds(3),
+      Commands.runOnce(() -> {tankDrive.moving(0, 0);}, tankDrive)
+    );
   }
 }
